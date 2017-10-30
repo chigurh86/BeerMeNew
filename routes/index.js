@@ -115,14 +115,14 @@ router.get('/register', function(req, res, next) {
         //
         //     res.json(data);
         //     });
-        models.Favorite.findOne({ where: { id: theuser } })
-          .then(user => {
-            console.log('found user from model findOne!');
-            console.log('user: ', user);
-            res.json(user);
+        models.Favorite.findAll({ where: { theuser: theuser} })
+          .then(favorites => {
+            console.log('found favorites from model findOne!');
+            console.log('favorites: ', favorites);
+            res.json(favorites);
           })
           .catch(err => {
-            console.log('err in User.findOne!');
+            console.log('err in favorites.findOne!');
             console.log(err);
             res.status(400).send({
               message: err.message
