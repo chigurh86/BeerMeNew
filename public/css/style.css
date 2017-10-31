@@ -1,5 +1,6 @@
 body {
   margin: 0;
+
 }
 h1{
   font-family: 'Shrikhand', cursive;
@@ -433,9 +434,7 @@ margin: 0 auto;
   .theBeer{
     width: 100%;
   }
-  .theLogo{
-    width: 100px;
-  }
+
   .navbar-brand{
     width: 20%;
   }
@@ -807,9 +806,7 @@ h4{
   .theBeer{
     width: 100%;
   }
-  .theLogo{
-    width: 100px;
-  }
+
   .navbar-brand{
     width: 20%;
   }
@@ -861,9 +858,7 @@ h4{
   .theBeer{
     width: 100%;
   }
-  .theLogo{
-    width: 100px;
-  }
+
   .navbar-brand{
     width: 20%;
   }

@@ -105,16 +105,6 @@ router.get('/register', function(req, res, next) {
 // get favorites
      router.get("/api/favorites", function(req, res) {
       const theuser = req.user.user_id;
-        // connection.query("SELECT * FROM favorites WHERE id=?", [req.user.user_id], function(err, data) {
-        //     if (err) {
-        //         throw err;
-        //     }
-        //     else {
-        //         console.log(data);
-        //     }
-        //
-        //     res.json(data);
-        //     });
         models.Favorite.findAll({ where: { theuser: theuser} })
           .then(favorites => {
             console.log('found favorites from model findOne!');
@@ -146,38 +136,37 @@ router.get('/register', function(req, res, next) {
       });
     });
 // get breweries
-      router.get("/api/breweries", function(req, res) {
-        db.query("SELECT * FROM breweries WHERE id=?", [req.user.user_id], function(err, data) {
-            if (err) {
-                throw err;
-            }
-            else {
-                console.log(data);
-            }
-            res.json(data);
-            });
-        });
-// get users info from database
-      router.get("/api/userdata", function(req, res) {
-        console.log('models: ', models);
-        models.User.findOne({ where: { id: req.user.user_id } })
-          .then(user => {
-            console.log('found user from model findOne!');
-            console.log('user: ', user);
-            res.json(user);
-          })
-          .catch(err => {
-            console.log('err in User.findOne!');
-            console.log(err);
-            res.status(400).send({
-              message: err.message
-            });
+    router.get("/api/breweries", function(req, res) {
+      db.query("SELECT * FROM breweries WHERE id=?", [req.user.user_id], function(err, data) {
+          if (err) {
+              throw err;
+          }
+          else {
+              console.log(data);
+          }
+          res.json(data);
           });
-       });
+      });
+// get users info from database
+    router.get("/api/userdata", function(req, res) {
+      console.log('models: ', models);
+      models.User.findOne({ where: { id: req.user.user_id } })
+        .then(user => {
+          console.log('found user from model findOne!');
+          console.log('user: ', user);
+          res.json(user);
+        })
+        .catch(err => {
+          console.log('err in User.findOne!');
+          console.log(err);
+          res.status(400).send({
+            message: err.message
+          });
+        });
+     });
 // get beerdata
       router.get("/api/beers", function(req, res) {
-        // const db = require('../db.js');
-
+        const user = req.user.user_id;
           // db.query("SELECT * FROM beers WHERE id=?", [req.user.user_id], function(err, data) {
           //     if (err) {
           //         throw err;
@@ -187,14 +176,14 @@ router.get('/register', function(req, res, next) {
           //     }
           //     res.json(data);
           //     });
-          models.Beer.findOne({ where: { id: req.user.user_id } })
-            .then(user => {
-              console.log('found user from model findOne!');
-              console.log('user: ', user);
-              res.json(user);
+          models.Beer.findAll({ where: { user: user } })
+            .then(beername => {
+              console.log('found beername from model findAll!');
+              console.log('beername: ', beername);
+              res.json(beername);
             })
             .catch(err => {
-              console.log('err in User.findOne!');
+              console.log('err in Beer.findAll!');
               console.log(err);
               res.status(400).send({
                 message: err.message
