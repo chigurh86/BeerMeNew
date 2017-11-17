@@ -8,8 +8,26 @@
 
  console.log("Info " + process.env.DB_NAME + process.env.DB_USER + process.env.DB_HOST);
 
- const sequelize = new Sequelize("express-cc", "root", "root", {
+ var dbName = process.env.DB_NAME || 'express-cc';
+ var dbUser = process.env.DB_USER || 'root';
+ var dbPassword = process.env.DB_PASSWORD || 'root';
+ var dbHost = process.env.DB_HOST || 'localhost';
+
+ /*const sequelize = new Sequelize(prcoess, "root", "root", {
    host: 'localhost',
+   dialect: 'mysql',
+   pool: {
+     max: 5,
+     min: 0,
+     idle: 10000
+   }, define: {
+        timestamps: false
+    }
+
+ });
+*/
+ const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
+   host: dbHost,
    dialect: 'mysql',
    pool: {
      max: 5,
