@@ -45,7 +45,7 @@ var options = {
   user: process.env.DB_USER || "root",
   password: process.env.DB_PASSWORD || "root",
   database : process.env.DB_NAME || "express-cc",
-  // socketName: '/tmp/mysql.sock'
+  socketName: '/tmp/mysql.sock'
 };
 
 var sessionStore = new MySQLStore(options);
