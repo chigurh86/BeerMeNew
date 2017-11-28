@@ -229,7 +229,7 @@ router.post('/register', function(req, res, next) {
             const user_id = results[0];
             console.log(results[0]);
             req.login(user_id, function(err){
-              res.redirect('/');
+              return res.redirect('/');
             })
             // res.render('register', { title: 'Registration Complete' });
           })
