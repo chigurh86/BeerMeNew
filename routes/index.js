@@ -204,7 +204,7 @@ router.post('/register', function(req, res, next) {
   const errors = req.validationErrors();
   if (errors) {
     console.log(`errors: ${JSON.stringify(errors)}`);
-      res.render('register', {
+      return res.render('register', {
         title:'Registration Error',
         errors: errors
       });
@@ -231,7 +231,7 @@ router.post('/register', function(req, res, next) {
             req.login(user_id, function(err){
               res.redirect('/');
             })
-            res.render('register', { title: 'Registration Complete' });
+            // res.render('register', { title: 'Registration Complete' });
           })
         })
       });
