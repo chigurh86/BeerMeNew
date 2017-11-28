@@ -16,7 +16,12 @@ const host = process.env.DB_HOST || 'localhost';
 
 let dbConnection;
 if (env === 'production') {
-  dbConnection = mysql.createConnection(process.env.JAWSDB_URL);
+  // dbConnection = mysql.createConnection(process.env.JAWSDB_URL);
+  mysql.createConnection({
+    host,
+    user: username,
+    password
+  });
 } else {
   dbConnection = mysql.createConnection({
     host,
