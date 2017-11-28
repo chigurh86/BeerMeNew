@@ -16,12 +16,12 @@ const host = process.env.DB_HOST || 'localhost';
 
 let dbConnection;
 if (env === 'production') {
-  // dbConnection = mysql.createConnection(process.env.JAWSDB_URL);
-  dbConnection = mysql.createConnection({
+dbConnection = mysql.createConnection(process.env.CLEARDB_DATABASE_URL);
+/*  dbConnection = mysql.createConnection({
     host,
     user: username,
     password
-  });
+  }); */
 } else {
   dbConnection = mysql.createConnection({
     host,
@@ -36,7 +36,7 @@ dbConnection.connect();
 let sequelize;
 
 if (env === 'production') {
-  sequelize = new Sequelize(process.env.JAWSDB_URL);
+  sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
 } else {
   sequelize = new Sequelize(database, username, password, {
     host,
