@@ -211,30 +211,45 @@ router.post('/register', function(req, res, next) {
   } else{
       const username = req.body.username;
       const email = req.body.email;
-      const password = req.body.password;
+      const password = bcrypt.hashSync(req.body.password, saltRounds);
 
       console.log(req.body.username);
       console.log(req.body.email);
       console.log(req.body.password);
-      const db = require('../db.js');
-
-
-      bcrypt.hash(password, saltRounds, function(err, hash) {
-        db.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, hash], function(
-        error, results, fields){
-          if (error) throw error;
-          db.query('SELECT LAST_INSERT_ID() as user_id', function(error, results, fields) {
-            if (error) throw error;
-
-            const user_id = results[0];
-            console.log(results[0]);
-            req.login(user_id, function(err){
-              return res.redirect('/');
-            })
-            // res.render('register', { title: 'Registration Complete' });
+      models.User.create({ username, password, email })
+        .then(user => {
+          console.log('user created successfully');
+          console.log('user: ', user);
+          req.login(user.id, function(err) {
+            return res.redirect('/');
           })
         })
-      });
+        .catch(err => {
+          console.log('err in User.create!');
+          console.log(err);
+          res.status(400).send({
+            message: err.message
+          });
+        });
+      // const db = require('../db.js');
+
+
+      // bcrypt.hash(password, saltRounds, function(err, hash) {
+      //   db.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, hash], function(
+      //   error, results, fields) {
+      //     if (error) throw error;
+      //     db.query('SELECT LAST_INSERT_ID() as user_id', function(error, results, fields) {
+      //       if (error) throw error;
+      //
+      //       const user_id = results[0];
+      //       console.log(results[0]);
+      //       req.login(user_id, function(err) {
+      //         return res.redirect('/');
+      //       })
+      //       // res.render('register', { title: 'Registration Complete' });
+      //     })
+      //   })
+      // });
     }
       });
 
