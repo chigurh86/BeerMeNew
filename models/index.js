@@ -15,7 +15,7 @@ const password = process.env.DB_PASSWORD || 'root';
 const host = process.env.DB_HOST || 'localhost';
 
 let dbConnection;
-if (env === 'production') {
+if (process.env.NODE_ENV === 'production') {
 dbConnection = mysql.createConnection(process.env.CLEARDB_DATABASE_URL);
 /*  dbConnection = mysql.createConnection({
     host,
@@ -35,7 +35,7 @@ dbConnection.connect();
 
 let sequelize;
 
-if (env === 'production') {
+if (process.env.NODE_ENV === 'production') {
   sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
 } else {
   sequelize = new Sequelize(database, username, password, {
