@@ -6,7 +6,7 @@
 
  var orm = {};
 
- console.log("Info " + process.env.DB_NAME + process.env.DB_USER + process.env.DB_HOST);
+console.log('----------------> i got here', process.env.NODE_ENV, process.env.JAWSDB_URL);
 
  var dbName = process.env.DB_NAME || 'express-cc';
  var dbUser = process.env.DB_USER || 'root';
