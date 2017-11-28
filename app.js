@@ -38,27 +38,27 @@ app.use(expressValidator()); // this line must be immediately after any of the b
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// var MySQLStore = require('express-mysql-session')(session);
-//
-// var options = {
-//   host: process.env.DB_HOST || "localhost",
-//   user: process.env.DB_USER || "root",
-//   password: process.env.DB_PASSWORD || "root",
-//   database : process.env.DB_NAME || "express-cc",
-//   // socketName: '/tmp/mysql.sock'
-// };
-//
-// var sessionStore = new MySQLStore(options);
-//
-//
-// app.use(session({
-//   secret: 'nkjbckshbdcjhsd',
-//   resave: false,
-//   store: sessionStore,
-//   saveUninitialized: false,
-//   key: 'sessionID'
-//   // cookie: { secure: true }
-// }))
+var MySQLStore = require('express-mysql-session')(session);
+
+var options = {
+  host: process.env.DB_HOST || "localhost",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "root",
+  database : process.env.DB_NAME || "express-cc",
+  // socketName: '/tmp/mysql.sock'
+};
+
+var sessionStore = new MySQLStore(options);
+
+
+app.use(session({
+  secret: 'nkjbckshbdcjhsd',
+  resave: false,
+  store: sessionStore,
+  saveUninitialized: false,
+  key: 'sessionID'
+  // cookie: { secure: true }
+}))
 app.use(passport.initialize());
 app.use(passport.session());
 
